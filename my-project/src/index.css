@@ -1,0 +1,95 @@
+.title {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* horizontal center */
+  justify-content: flex-start; /* stay at top */
+  padding: 10px;
+  text-align: center;
+  margin-top: -10px;
+  text-decoration: underline;
+}
+
+.story-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.story-card h2 {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* horizontal center */
+  padding: 10px;
+  margin-top:-10px;
+  margin-bottom:0px;
+  text-decoration: underline;
+}
+
+.story-card p {
+  font-size: 1rem;
+  margin-left: 15px;
+  text-align: center;
+}
+
+.addressdate-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.addressdate-card h2 {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* horizontal center */
+  padding: 10px;
+  margin-top:-10px;
+  margin-bottom:10px;
+  text-decoration: underline;
+}
+
+.addressdate-card p {
+  font-size: 1rem;
+  margin-left: 15px;
+  text-align: center;
+}
+
+.link a {
+  color: blue;
+  margin-left: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.enter-draw-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
