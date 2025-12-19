@@ -105,12 +105,14 @@ function Home() {
       </div>
 
       {/* Enter Draw */}
+      <div className="buttons">
       <button
         className="enter-draw-button"
         onClick={() => navigate("/EntryForm")}
       >
         Put My Name In The Draw!
       </button>
+    </div>
     </div>
     </>
   );

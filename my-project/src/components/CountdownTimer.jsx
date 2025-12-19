@@ -31,12 +31,14 @@ function CountdownTimer() {
   }
 
   return (
-    <p className="countdown-text">⏳
+    <p className="countdown-text">
+  <span className="countdown-icon">⏳</span>
   <span className="text-shimmer">
-     Time Left to Enter Draw:{" "}
-    {timeLeft.days}D {timeLeft.hours}H {timeLeft.minutes}M {timeLeft.seconds}S
+    Time Left to Enter Draw: {timeLeft.days}D {timeLeft.hours}H{" "}
+    {timeLeft.minutes}M {timeLeft.seconds}S
   </span>
 </p>
+
 
   );
 }
