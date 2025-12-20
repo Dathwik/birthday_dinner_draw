@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 /* ---------- Validation Regex ---------- */
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -20,6 +22,7 @@ function EntryForm() {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   /* ---------- Redirect after submit ---------- */
   useEffect(() => {
@@ -35,14 +38,21 @@ function EntryForm() {
   /* ---------- Handlers ---------- */
   function handleChange(e) {
     const { name, value } = e.target;
+
     setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
+
+    setErrors(prev => ({
+      ...prev,
+      [name]: undefined,
+    }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (loading) return;
 
     const newErrors = {};
 
@@ -57,17 +67,13 @@ function EntryForm() {
     }
 
     const value = formData.emailOrInstagram.trim();
-    if (
-      !emailRegex.test(value) &&
-      !instagramRegex.test(value)
-    ) {
+    if (!emailRegex.test(value) && !instagramRegex.test(value)) {
       newErrors.emailOrInstagram =
         "Enter a valid email or Instagram handle.";
     }
 
     if (!usPhoneRegex.test(formData.phone.trim())) {
-      newErrors.phone =
-        "Enter a valid US phone number.";
+      newErrors.phone = "Enter a valid US phone number.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -76,7 +82,24 @@ function EntryForm() {
     }
 
     setErrors({});
-    setSubmitted(true);
+    setLoading(true);
+
+    try {
+      await addDoc(collection(db, "entries"), {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        emailOrInstagram: formData.emailOrInstagram.trim(),
+        phone: formData.phone.trim(),
+        createdAt: serverTimestamp(),
+      });
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Firestore error:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   /* ---------- Render ---------- */
@@ -111,9 +134,7 @@ function EntryForm() {
                 onChange={handleChange}
               />
               {errors.firstName && (
-                <span className="form-error">
-                  {errors.firstName}
-                </span>
+                <span className="form-error">{errors.firstName}</span>
               )}
             </label>
 
@@ -126,9 +147,7 @@ function EntryForm() {
                 onChange={handleChange}
               />
               {errors.lastName && (
-                <span className="form-error">
-                  {errors.lastName}
-                </span>
+                <span className="form-error">{errors.lastName}</span>
               )}
             </label>
 
@@ -156,17 +175,16 @@ function EntryForm() {
                 onChange={handleChange}
               />
               {errors.phone && (
-                <span className="form-error">
-                  {errors.phone}
-                </span>
+                <span className="form-error">{errors.phone}</span>
               )}
             </label>
 
             <button
               type="submit"
               className="enter-draw-button"
+              disabled={loading}
             >
-              Submit Entry
+              {loading ? "Submitting..." : "Submit Entry"}
             </button>
           </form>
         ) : (
@@ -180,8 +198,7 @@ function EntryForm() {
             </p>
 
             <p className="redirect-note">
-              You’ll be redirected to the home page
-              in a few seconds.
+              You’ll be redirected to the home page in a few seconds.
             </p>
 
             <button
@@ -193,9 +210,23 @@ function EntryForm() {
           </div>
         )}
       </div>
+
+      {/* Instructions */}
+      {!submitted && (
+        <div className="instructions-card">
+          <div className="instructions-title">
+            <h3><i>How the Draw Works</i></h3>
+          </div>
+          <ul>
+            <li>Fill in all details accurately.</li>
+            <li>Enter either a valid email or Instagram handle.</li>
+            <li>Only one entry per person is allowed.</li>
+            <li>The winner will be contacted before the event.</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
 
 export default EntryForm;
-

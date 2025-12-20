@@ -32,7 +32,7 @@ function Home() {
 
       {/* Title */}
       <div className="title">
-        <h1><i>Birthday Dinner Draw</i></h1>
+        <h1><i>Birthday Dinner Draw </i></h1>
       </div>
 
       {/* Story */}
