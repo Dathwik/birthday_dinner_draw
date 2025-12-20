@@ -215,13 +215,15 @@ function EntryForm() {
       {!submitted && (
         <div className="instructions-card">
           <div className="instructions-title">
-            <h3><i>How the Draw Works</i></h3>
+            <h3><i>How the Draw Works:</i></h3>
           </div>
           <ul>
             <li>Fill in all details accurately.</li>
             <li>Enter either a valid email or Instagram handle.</li>
             <li>Only one entry per person is allowed.</li>
-            <li>The winner will be contacted before the event.</li>
+            <li>Entries are processed after the draw closes.</li>
+            <li>The winner will be contacted personally three days before the event.</li>
+            <li>If the winner doesn't respond, a new winner will be selected.</li>
           </ul>
         </div>
       )}
