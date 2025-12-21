@@ -1,21 +1,19 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
-// Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDMnGh3cGfd277xvLJwo4re5QUkSP0uAr0",
-  authDomain: "semma-bday-7ab86.firebaseapp.com",
-  projectId: "semma-bday-7ab86",
-  storageBucket: "semma-bday-7ab86.firebasestorage.app",
-  messagingSenderId: "814581372398",
-  appId: "1:814581372398:web:decf05581045307039aaff",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// ✅ Initialize services
-export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const auth = getAuth(app);
+
 
